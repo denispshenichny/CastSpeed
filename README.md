@@ -1,14 +1,17 @@
-BenchmarkDotNet=v0.12.1, OS=Windows 10.0.17763.404 (1809/October2018Update/Redstone5)
-Intel Core i7-3770 CPU 3.40GHz (Ivy Bridge), 1 CPU, 8 logical and 4 physical cores
-  [Host]     : .NET Framework 4.8 (4.8.3928.0), X86 LegacyJIT  [AttachedDebugger]
-  DefaultJob : .NET Framework 4.8 (4.8.3928.0), X86 LegacyJIT
+``` ini
+
+BenchmarkDotNet=v0.12.1, OS=Windows 10.0.18363.836 (1909/November2018Update/19H2)
+Intel Core i3-8100 CPU 3.60GHz (Coffee Lake), 1 CPU, 4 logical and 4 physical cores
+  [Host]     : .NET Framework 4.8 (4.8.4180.0), X86 LegacyJIT
+  DefaultJob : .NET Framework 4.8 (4.8.4180.0), X86 LegacyJIT
 
 
-|                Method |      Mean |     Error |    StdDev | Gen 0 | Gen 1 | Gen 2 | Allocated |
-|---------------------- |----------:|----------:|----------:|------:|------:|------:|----------:|
-|    CastObjects_ToBase | 1.1809 ns | 0.0371 ns | 0.0347 ns |     - |     - |     - |         - |
-| CastObjects_ToDerived | 1.1572 ns | 0.0206 ns | 0.0183 ns |     - |     - |     - |         - |
-|       CastBase_ToBase | 0.8736 ns | 0.0462 ns | 0.0532 ns |     - |     - |     - |         - |
-|    CastBase_ToDerived | 1.1512 ns | 0.0119 ns | 0.0111 ns |     - |     - |     - |         - |
-|    CastDerived_ToBase | 0.8799 ns | 0.0526 ns | 0.0605 ns |     - |     - |     - |         - |
-| CastDerived_ToDerived | 0.8505 ns | 0.0140 ns | 0.0131 ns |     - |     - |     - |         - |
+```
+|                Method |      Mean |     Error |    StdDev |
+|---------------------- |----------:|----------:|----------:|
+|    CastObjects_ToBase | 4.7773 ns | 0.0161 ns | 0.0151 ns |
+| CastObjects_ToDerived | 1.1754 ns | 0.0067 ns | 0.0052 ns |
+|       CastBase_ToBase | 0.2397 ns | 0.0071 ns | 0.0067 ns |
+|    CastBase_ToDerived | 1.1783 ns | 0.0064 ns | 0.0060 ns |
+|    CastDerived_ToBase | 0.2421 ns | 0.0138 ns | 0.0129 ns |
+| CastDerived_ToDerived | 0.0601 ns | 0.0080 ns | 0.0075 ns |

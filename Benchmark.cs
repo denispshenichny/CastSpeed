@@ -1,77 +1,56 @@
-﻿using BenchmarkDotNet.Attributes;
-using DevExpress.XtraCharts.ModelSupport.Implementation;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
+using BenchmarkDotNet.Attributes;
 
 namespace CastSpeed {
+    public class A {
+    }
+    public class B : A {
+    }
+    public class C : B {
+    }
+    public class D : C {
+    }
+    public class E : D {
+    }
+    public class F : E {
+    }
     public class Benchmark {
-        List<object> listObjects;
-        List<ComplexSeriesConfigurator> listBase;
-        List<BubbleSeriesConfigurator> listDerived;
-        const int Count = 100000;
+        object obj;
+        A @base;
+		F derived;
+
         [GlobalSetup]
         public void Setup() {
-            listObjects = new List<object>(Count);
-            listBase = new List<ComplexSeriesConfigurator>(Count);
-            listDerived = new List<BubbleSeriesConfigurator>(Count);
-
-            for(int i = 0; i < listObjects.Count; i++) {
-                listObjects.Add(new BubbleSeriesConfigurator());
-                listBase.Add(new BubbleSeriesConfigurator());
-                listDerived.Add(new BubbleSeriesConfigurator());
-            }
+            obj = new F();
+            @base = new F();
+            derived = new F();
         }
 
-        [Benchmark]
-        public void CastObjects_ToBase() {
-            for(int i = 0; i < listObjects.Count; i++) {
-                var cfgCommon = listObjects[i] as ComplexSeriesConfigurator;
-                if(cfgCommon == null)
-                    throw new Exception();
-            }                
+        [Benchmark, MethodImpl(MethodImplOptions.NoInlining)]
+        public A CastObjects_ToBase() {
+            return obj as A;
         }
-        [Benchmark]
-        public void CastObjects_ToDerived() {
-            for(int i = 0; i < listObjects.Count; i++) {
-                var cfgCommon = listObjects[i] as BubbleSeriesConfigurator;
-                if(cfgCommon == null)
-                    throw new Exception();
-            }
+        [Benchmark, MethodImpl(MethodImplOptions.NoInlining)]
+        public F CastObjects_ToDerived() {
+            return obj as F;
         }
-        [Benchmark]
-        public void CastBase_ToBase() {
-            for(int i = 0; i < listBase.Count; i++) {
-                var cfgCommon = listBase[i] as ComplexSeriesConfigurator;
-                if(cfgCommon == null)
-                    throw new Exception();
-            }
+        [Benchmark, MethodImpl(MethodImplOptions.NoInlining)]
+        public A CastBase_ToBase() {
+            return @base as A;
         }
-        [Benchmark]
-        public void CastBase_ToDerived() {
-            for(int i = 0; i < listBase.Count; i++) {
-                var cfgCommon = listBase[i] as BubbleSeriesConfigurator;
-                if(cfgCommon == null)
-                    throw new Exception();
-            }
+        [Benchmark, MethodImpl(MethodImplOptions.NoInlining)]
+        public F CastBase_ToDerived() {
+            return @base as F;
         }
-        [Benchmark]
-        public void CastDerived_ToBase() {
-            for(int i = 0; i < listDerived.Count; i++) {
-                var cfgCommon = listDerived[i] as ComplexSeriesConfigurator;
-                if(cfgCommon == null)
-                    throw new Exception();
-            }
+        [Benchmark, MethodImpl(MethodImplOptions.NoInlining)]
+        public A CastDerived_ToBase() {
+            return derived as A;
         }
-        [Benchmark]
-        public void CastDerived_ToDerived() {
-            for(int i = 0; i < listDerived.Count; i++) {
-                var cfgCommon = listDerived[i] as BubbleSeriesConfigurator;
-                if(cfgCommon == null)
-                    throw new Exception();
-            }
+        [Benchmark, MethodImpl(MethodImplOptions.NoInlining)]
+        public F CastDerived_ToDerived() {
+            return derived as F;
         }
     }
 }
